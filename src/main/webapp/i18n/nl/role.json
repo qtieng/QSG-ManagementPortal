@@ -1,0 +1,35 @@
+{
+    "managementPortalApp": {
+        "Role" : {
+            "null": "",
+            "ROLE_SYS_SUPERUSER": "ROLE_SYS_SUPERUSER",
+            "ROLE_SYS_ADMIN": "ROLE_SYS_ADMIN",
+            "ROLE_SYS_USER": "ROLE_SYS_USER",
+            "ROLE_OWNER": "ROLE_OWNER",
+            "ROLE_AFFILIATE": "ROLE_AFFILIATE",
+            "ROLE_ANALYST": "ROLE_ANALYST",
+            "ROLE_PARTICIPANT": "ROLE_PARTICIPANT"
+        },
+        "role" : {
+            "home": {
+                "title": "Rollen",
+                "createLabel": "Nieuwe rol aanmaken",
+                "createOrEditLabel": "Maak of wijzig rol"
+            },
+            "created": "De rol werd aangemaakt {{ param }}",
+            "updated": "De rol werd gewijzigd {{ param }}",
+            "deleted": "De rol werd verwijderd {{ param }}",
+            "delete": {
+                "question": "Weet je zeker dat je deze rol wil verwijderen? {{ id }}?"
+            },
+            "detail": {
+                "title": "Rol"
+            },
+            "authorityName": "Authority Naam",
+            "project": "Project"
+        },
+        "error": {
+            "error.invalidAuthority": "Ongeldige authority: {{ param0 }}"
+        }
+    }
+}

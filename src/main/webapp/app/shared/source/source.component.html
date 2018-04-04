@@ -1,0 +1,113 @@
+<div>
+    <h4>
+        <span jhiTranslate="managementPortalApp.source.home.title">Devices</span>
+        <button  *ngIf='!isProjectSpecific'
+                class="btn btn-primary float-right create-source"
+                [routerLink]="['/', { outlets: { popup: ['general-source-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="managementPortalApp.source.home.createLabel">
+            Create new Device
+            </span>
+        </button>
+        <button  *ngIf='isProjectSpecific'
+                 class="btn btn-primary float-right create-source"
+                 [routerLink]="['/', { outlets: { popup: ['project-source-new' , project.projectName] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="managementPortalApp.source.home.createLabel">
+            Create new Device
+            </span>
+        </button>
+
+    </h4>
+    <div class="row">
+    </div>
+    <br/>
+    <jhi-alert></jhi-alert>
+    <div class="table-responsive" *ngIf="sources">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id" ><span jhiTranslate="global.field.id">ID</span><span class="fa fa-sort"></span></th>
+            <th jhiSortBy="sourceName" ><span jhiTranslate="managementPortalApp.source.sourceName">Source Name</span><span class="fa fa-sort"></span></th>
+            <th><span jhiTranslate="managementPortalApp.source.expectedSourceName">Expected Source Name</span></th>
+            <th jhiSortBy="sourceId" ><span jhiTranslate="managementPortalApp.source.sourceId">Source Id</span><span class="fa fa-sort"></span></th>
+            <th jhiSortBy="assigned" ><span jhiTranslate="managementPortalApp.source.assigned">Assigned</span><span class="fa fa-sort"></span></th>
+            <th jhiSortBy="sourceType" ><span jhiTranslate="managementPortalApp.source.sourceType">Source Type</span><span class="fa fa-sort"></span></th>
+            <th jhiSortBy="project" *ngIf="!isProjectSpecific"><span jhiTranslate="managementPortalApp.source.project">Project</span><span class="fa fa-sort"></span></th>
+            <th><span jhiTranslate="managementPortalApp.source.attributeData">Attributes</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let source of sources ;trackBy: trackId">
+                <td>{{source.id}}</td>
+                <td><a [routerLink]="['/source', source.sourceName ]">{{source.sourceName}}</a></td>
+                <td>{{source.expectedSourceName}}</td>
+                <td>{{source.sourceId}}</td>
+                <td>
+                    <span class="badge badge-danger" *ngIf="!source.assigned"
+                          jhiTranslate="managementPortalApp.source.unassigned">Unassigned</span>
+                    <span class="badge badge-success" *ngIf="source.assigned"
+                          jhiTranslate="managementPortalApp.source.assigned">Assigned</span>
+                </td>
+                <td>
+                    <div *ngIf="source.sourceType">
+                        <a [routerLink]="['/source-type', source.sourceType?.producer , source.sourceType?.model , source.sourceType?.catalogVersion ]" >{{source.sourceType.producer+"_"+source.sourceType.model +"_"+source.sourceType.catalogVersion}}</a>
+                    </div>
+                </td>
+                <td *ngIf="!isProjectSpecific">
+                    <div *ngIf="source.project">
+                        <a [routerLink]="['/project', source.project.projectName ]" >{{source.project.projectName}}</a>
+                    </div>
+                </td>
+                <td>
+                  <div *ngFor="let entry of source.attributes | keys; trackBy: trackKey">
+                    <span class="form-control-static">{{entry.key}}: {{entry.value}}</span>
+                  </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/source', source.sourceName ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button *ngIf='isProjectSpecific'
+                                type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'project-source/'+ project.projectName + '/' + source.sourceName + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button *ngIf='!isProjectSpecific'
+                                type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'general-source/'+ source.sourceName + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'source/'+ source.sourceName + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="sources">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(pageSize)]="itemsPerPage" boundaryLinks = true [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

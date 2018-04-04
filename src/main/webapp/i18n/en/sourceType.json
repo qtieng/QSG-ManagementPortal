@@ -1,0 +1,38 @@
+{
+    "managementPortalApp": {
+        "sourceType" : {
+            "home": {
+                "title": "Source Types",
+                "createLabel": "Create a new Source Type",
+                "createOrEditLabel": "Create or edit a Source Type"
+            },
+            "created": "A new Source Type is created with identifier {{ param }}",
+            "updated": "A Source Type is updated with identifier {{ param }}",
+            "deleted": "A Source Type is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Source Type {{ id }}?"
+            },
+            "detail": {
+                "title": "Source Type"
+            },
+            "producer": "Producer",
+            "model": "Model",
+            "catalogVersion": "Catalog Version",
+            "sourceTypeScope": "Source Type Scope",
+            "sourceData": "Source Data",
+            "project": "Project",
+            "sourceRegistration" : "Source registration",
+            "dynamicRegistration": "Dynamic source registration",
+            "manualRegistration": "Manual Source registration",
+            "name": "Name",
+            "description": "Description",
+            "assessmentType": "Assessment Type",
+            "appProvider": "App provider"
+        }
+    },
+    "error": {
+        "sourceTypeExists": "A SourceType with given producer, model and version already exists.",
+        "validation": "Validation error, check the entered values in the fields.",
+        "sourceTypeInUse": "This SourceType can not be deleted, it is still in use by the following projects: {{ param0 }}"
+    }
+}

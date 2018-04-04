@@ -1,0 +1,45 @@
+{
+    "userManagement": {
+        "home": {
+            "title": "Users",
+            "createLabel": "Create a new user",
+            "createAdminLabel": "Create an admin user",
+            "createOrEditLabel": "Create or edit a user"
+        },
+        "created": "A new user is created with identifier {{ param }}",
+        "updated": "An user is updated with identifier {{ param }}",
+        "deleted": "An user is deleted with identifier {{ param }}",
+        "delete": {
+            "question": "Are you sure you want to delete user {{ login }}?"
+        },
+        "detail": {
+            "title": "User"
+        },
+        "login": "Login",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "activated": "Activated",
+        "deactivated": "Deactivated",
+        "profiles": "Authorities",
+        "langKey": "Language",
+        "createdBy": "Created by",
+        "createdDate": "Created date",
+        "lastModifiedBy": "Modified by",
+        "lastModifiedDate": "Modified date",
+        "role" : {
+            "title" : "Role",
+            "create" : "Add",
+            "authorityName" : "Authority",
+            "project" : "Project",
+            "error" : {
+                "alreadyExist" : "This role has been already added"
+            }
+        },
+        "project" : "Project"
+    },
+    "error": {
+        "rolesRequired": "One or more roles are required",
+        "validation": "Validation error, check the entered values in the fields."
+    }
+}

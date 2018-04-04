@@ -1,0 +1,66 @@
+apply plugin: 'scala'
+
+ext.gatlingSrc = "${project.rootDir.absolutePath}/src/gatling"
+ext.gatlingSimulations = "${gatlingSrc}/scala"
+
+sourceSets {
+    gatling {
+        scala {
+            srcDirs = [gatlingSimulations]
+        }
+    }
+}
+
+dependencies {
+    gatlingCompile "io.gatling.highcharts:gatling-charts-highcharts:${gatling_version}"
+}
+
+//noinspection GroovyAssignabilityCheck
+tasks.withType(ScalaCompile) {
+    scalaClasspath = scalaRuntime.inferScalaClasspath(configurations.gatlingCompile)
+}
+
+task manifestJar(type: Jar) {
+    from configurations.gatlingCompile
+    archiveName 'gatlingBooter.jar'
+    doFirst {
+        manifest {
+            // uri is just needed for Windows-compatibility
+            attributes 'Class-Path': configurations.gatlingCompile.files.collect{ project.uri(it) }.join(' ')
+        }
+    }
+}
+
+task gatlingRunAll(dependsOn: manifestJar) {
+    group = 'gatling'
+    description = 'Run all available Gatling simulations.'
+
+    fileTree(dir: gatlingSimulations, include: '**/*.scala').each {
+        def gatlingClass = it.name.replaceFirst(".scala", "")
+        gatlingRunAll.dependsOn "gatlingRun${gatlingClass}"
+    }
+}
+
+tasks.addRule("Pattern: gatlingRun<ID>") { String taskName ->
+    if (taskName.startsWith("gatlingRun") && taskName != "gatlingRunAll") {
+        task(taskName, type: JavaExec, dependsOn: manifestJar) {
+            standardInput = System.in
+
+            final def sourceSet = sourceSets.gatling
+
+            classpath sourceSet.output + files(manifestJar.archivePath) + files("${gatlingSrc}/resources")
+            main = "io.gatling.app.Gatling"
+
+            environment GATLING_HOME:''
+
+            def className = taskName - 'gatlingRun'
+
+            args '-df', "${gatlingSrc}/data"
+            args '-rf', "${project.buildDir.absolutePath}/reports/gatling"
+            args '-bdf', "${gatlingSrc}/bodies"
+            args '-sf', gatlingSimulations
+            args '-m'
+            args '-s', className
+        }
+    }
+}

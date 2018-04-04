@@ -1,0 +1,71 @@
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { DatePipe } from '@angular/common';
+
+import { CookieService } from 'angular2-cookie/services/cookies.service';
+import {
+    ManagementPortalSharedLibsModule,
+    ManagementPortalSharedCommonModule,
+    CSRFService,
+    AuthService,
+    AuthServerProvider,
+    AccountService,
+    UserService,
+    StateStorageService,
+    LoginService,
+    LoginModalService,
+    Principal,
+    HasAnyAuthorityDirective,
+    JhiLoginModalComponent
+} from './';
+import {AuthorityService} from "./user/authority.service";
+import {AttributeMapperComponent} from "./attribute-mapper/attribute-mapper.component";
+import {DictionaryMapperComponent} from "./dictionary-mapper/dictionary-mapper.component";
+import {CommonUserMgmtComponent} from "./user/common-user-management.component";
+import {RouterModule} from "@angular/router";
+import {ShowMoreComponent} from "./show-more/show-more.component";
+import {ResolvePagingParams} from "./commons";
+
+@NgModule({
+    imports: [
+        ManagementPortalSharedLibsModule,
+        ManagementPortalSharedCommonModule,
+        RouterModule
+    ],
+    declarations: [
+        JhiLoginModalComponent,
+        HasAnyAuthorityDirective,
+        AttributeMapperComponent,
+        DictionaryMapperComponent,
+        CommonUserMgmtComponent,
+        ShowMoreComponent
+    ],
+    providers: [
+        CookieService,
+        LoginService,
+        LoginModalService,
+        AccountService,
+        StateStorageService,
+        Principal,
+        CSRFService,
+        AuthServerProvider,
+        AuthService,
+        UserService,
+        AuthorityService,
+        DatePipe,
+        ResolvePagingParams
+    ],
+    entryComponents: [JhiLoginModalComponent],
+    exports: [
+        ManagementPortalSharedCommonModule,
+        JhiLoginModalComponent,
+        HasAnyAuthorityDirective,
+        AttributeMapperComponent,
+        DictionaryMapperComponent,
+        CommonUserMgmtComponent,
+        ShowMoreComponent,
+        DatePipe,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
+})
+export class ManagementPortalSharedModule {}

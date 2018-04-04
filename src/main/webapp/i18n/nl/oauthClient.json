@@ -1,0 +1,34 @@
+{
+    "managementPortalApp": {
+        "oauthClient": {
+            "home": {
+                "title": "OAuth Clients",
+                "createLabel": "Registreer nieuwe OAuth Client",
+                "createOrEditLabel": "Maak of wijzig OAuth Client"
+            },
+            "created": "OAuth client met client id {{ param }} werd aangemaakt",
+            "updated": "OAuth client met client id {{ param }} werd bijgewerkt",
+            "deleted": "OAuth client met client id {{ param }} werd verwijderd",
+            "delete": {
+                "question": "Weet je zeker dat je OAuth client {{ id }} wil verwijderen?"
+            },
+            "clientId": "Client ID",
+            "clientSecret": "Client Secret",
+            "scope": "Scope",
+            "resourceIds": "Resources",
+            "authorizedGrantTypes": "Grant Types",
+            "autoApprove": "Auto Approve",
+            "accessTokenValidity": "Access Token Validity",
+            "refreshTokenValidity": "Refresh Token Validity",
+            "authorities": "Authorities",
+            "additionalInformation": "Additional Information",
+            "actions": "Actions",
+            "error": {
+                "validation": "Validatie fout, controleer de ingevoerde waarden.",
+                "oAuthClientProtected": "{{ param0 }} is een beschermde OAuth client en kan niet gewijzigd worden",
+                "oAuthClientIdNotFound": "De client id kon niet gevonden worden",
+                "subjectNotFound": "De deelnemer login kon niet gevonden worden"
+            }
+        }
+    }
+}
